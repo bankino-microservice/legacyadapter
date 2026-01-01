@@ -1,0 +1,138 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://ebank.com/ebanking2/soap"
+           targetNamespace="http://ebank.com/ebanking2/soap"
+           elementFormDefault="qualified">
+
+    <xs:element name="ExecuteVirementRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ribEmetteur" type="xs:string"/>
+                <xs:element name="ribRecepteur" type="xs:string"/>
+                <xs:element name="montant" type="xs:double"/>
+                <xs:element name="Type" type="tns:Type"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="Type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="INSTANTANEE"/>
+            <xs:enumeration value="NORMAL"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:element name="ExecuteVirementResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="virementInfo" type="tns:virementSoapInfo"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetVirementByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetVirementByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="virementInfo" type="tns:virementSoapInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="virementSoapInfo">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="montant" type="xs:double"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="compteEmetteurRib" type="xs:string"/>
+            <xs:element name="compteRecepteurRib" type="xs:string"/>
+            <xs:element name="ammouttakefromyou" type="xs:double"/>
+            <xs:element name="date" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="serviceStatus">
+        <xs:sequence>
+            <xs:element name="statusCode" type="xs:string"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="DepotCEpargneRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Epargnerib" type="xs:string"/>
+                <xs:element name="Courantrib" type="xs:string"/>
+                <xs:element name="montant" type="xs:double"/>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="month" type="xs:int"/>
+                <xs:element name="day" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="RetraitCEpargneRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Epargnerib" type="xs:string"/>
+                <xs:element name="Courantrib" type="xs:string"/>
+                <xs:element name="montant" type="xs:double"/>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="month" type="xs:int"/>
+                <xs:element name="day" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCEpargneRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CEpargneResponseDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+                <xs:element name="balanceQ1" type="xs:double"/>
+                <xs:element name="balanceQ2" type="xs:double"/>
+                <xs:element name="interets" type="xs:double"/>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CloturequainzineRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="quaiznine" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CalculateAnnuealeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+                <xs:element name="year" type="xs:int"/>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ClotureAnnuelleResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
