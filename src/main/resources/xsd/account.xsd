@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://ebank.com/ebanking2/soap"
+           targetNamespace="http://ebank.com/ebanking2/soap"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <!-- CEpargne Response DTO -->
+    <xs:element name="CEpargneResponseDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+                <xs:element name="balanceQ1" type="xs:double"/>
+                <xs:element name="balanceQ2" type="xs:double"/>
+                <xs:element name="interets" type="xs:double"/>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Depot CEpargne -->
+    <xs:element name="DepotCEpargneRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Epargnerib" type="xs:string"/>
+                <xs:element name="Courantrib" type="xs:string"/>
+                <xs:element name="montant" type="xs:double"/>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="month" type="xs:int"/>
+                <xs:element name="day" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Retrait CEpargne -->
+    <xs:element name="RetraitCEpargneRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Epargnerib" type="xs:string"/>
+                <xs:element name="Courantrib" type="xs:string"/>
+                <xs:element name="montant" type="xs:double"/>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="month" type="xs:int"/>
+                <xs:element name="day" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get CEpargne -->
+    <xs:element name="GetCEpargneRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Cloture Quinzaine -->
+    <xs:element name="CloturequainzineRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="quaiznine" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Calculate Annuelle -->
+    <xs:element name="CalculateAnnuealeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+                <xs:element name="year" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ClotureAnnuelleResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Comptes by Status and Type -->
+    <xs:element name="GetComptesByStatusTypeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="type" type="xs:string" minOccurs="0"/>
+                <xs:element name="status" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetComptesByStatusTypeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="comptes" type="tns:CompteSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Solde -->
+    <xs:element name="GetSoldeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetSoldeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="solde" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Compte by ID -->
+    <xs:element name="GetCompteByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetCompteByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Comptes by Client -->
+    <xs:element name="GetComptesByClientRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+                <xs:element name="type" type="xs:string" minOccurs="0"/>
+                <xs:element name="status" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetComptesByClientResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="comptes" type="tns:CompteSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Change Dotation Status -->
+    <xs:element name="ChangeDotationStatusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountId" type="xs:long"/>
+                <xs:element name="autorisePaiementEnLigne" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ChangeDotationStatusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Create CCourant -->
+    <xs:element name="CreateCCourantRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+                <xs:element name="solde" type="xs:double" minOccurs="0"/>
+                <xs:element name="status" type="xs:string" minOccurs="0"/>
+                <xs:element name="autorisePaiementEnLigne" type="xs:boolean" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateCCourantResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Create CEpargne -->
+    <xs:element name="CreateCEpargneRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+                <xs:element name="tauxInterets" type="xs:double"/>
+                <xs:element name="solde" type="xs:double" minOccurs="0"/>
+                <xs:element name="status" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateCEpargneResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Client ID by Compte ID -->
+    <xs:element name="GetClientIdByCompteIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetClientIdByCompteIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Client ID by RIB -->
+    <xs:element name="GetClientIdByRibRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetClientIdByRibResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Update Compte -->
+    <xs:element name="UpdateCompteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="solde" type="xs:double" minOccurs="0"/>
+                <xs:element name="status" type="xs:string" minOccurs="0"/>
+                <xs:element name="autorisePaiementEnLigne" type="xs:boolean" minOccurs="0"/>
+                <xs:element name="tauxInterets" type="xs:double" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UpdateCompteResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Change Compte Status -->
+    <xs:element name="ChangeCompteStatusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ChangeCompteStatusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Delete Compte -->
+    <xs:element name="DeleteCompteRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteCompteResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="success" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Validate RIB -->
+    <xs:element name="ValidateRibRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ValidateRibResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="isValid" type="xs:boolean"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Check Account Exists -->
+    <xs:element name="CheckAccountExistsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="rib" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CheckAccountExistsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="exists" type="xs:boolean"/>
+                <xs:element name="compteId" type="xs:long" minOccurs="0"/>
+                <xs:element name="accountType" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Accounts by RIBs -->
+    <xs:element name="GetAccountsByRibsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ribs" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAccountsByRibsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="comptes" type="tns:CompteSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Block Account -->
+    <xs:element name="BlockAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+                <xs:element name="reason" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="BlockAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Unblock Account -->
+    <xs:element name="UnblockAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+                <xs:element name="reason" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UnblockAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Account Statement -->
+    <xs:element name="GetAccountStatementRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+                <xs:element name="startDate" type="xs:string" minOccurs="0"/>
+                <xs:element name="endDate" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAccountStatementResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="statement" type="tns:AccountStatementInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Verify Account Ownership -->
+    <xs:element name="VerifyAccountOwnershipRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="VerifyAccountOwnershipResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="isOwner" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Account Summary -->
+    <xs:element name="GetAccountSummaryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAccountSummaryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="summary" type="tns:AccountSummaryInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- CEpargne Specific Operations -->
+    
+    <!-- Get CEpargne Quarterly Interests -->
+    <xs:element name="GetCEpargneQuarterlyInterestsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetCEpargneQuarterlyInterestsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="balanceQ1" type="xs:double"/>
+                <xs:element name="balanceQ2" type="xs:double"/>
+                <xs:element name="interests" type="xs:double"/>
+                <xs:element name="tauxInterets" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Update CEpargne Interest Rate -->
+    <xs:element name="UpdateCEpargneInterestRateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+                <xs:element name="newTauxInterets" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UpdateCEpargneInterestRateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Apply CEpargne Interests -->
+    <xs:element name="ApplyCEpargneInterestsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ApplyCEpargneInterestsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+                <xs:element name="interestsApplied" type="xs:double"/>
+                <xs:element name="newBalance" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Calculate CEpargne Interests -->
+    <xs:element name="CalculateCEpargneInterestsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+                <xs:element name="period" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CalculateCEpargneInterestsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="calculatedInterests" type="xs:double"/>
+                <xs:element name="currentBalance" type="xs:double"/>
+                <xs:element name="tauxInterets" type="xs:double"/>
+                <xs:element name="projectedBalance" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get CEpargne by ID -->
+    <xs:element name="GetCEpargneByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compteId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetCEpargneByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="compte" type="tns:CompteSoapInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get All CEpargne by Client -->
+    <xs:element name="GetAllCEpargneByClientRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+                <xs:element name="status" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllCEpargneByClientResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="comptes" type="tns:CompteSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get All CEpargne by Interest Rate -->
+    <xs:element name="GetAllCEpargneByInterestRateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="minTaux" type="xs:double"/>
+                <xs:element name="maxTaux" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllCEpargneByInterestRateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="comptes" type="tns:CompteSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://ebank.com/ebanking2/soap"
+           targetNamespace="http://ebank.com/ebanking2/soap"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <!-- Virement Type Enum -->
+    <xs:simpleType name="Type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="INSTANTANEE"/>
+            <xs:enumeration value="NORMAL"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Virement Information Type -->
+    <xs:complexType name="virementSoapInfo">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="montant" type="xs:double"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="compteEmetteurRib" type="xs:string"/>
+            <xs:element name="compteRecepteurRib" type="xs:string"/>
+            <xs:element name="ammouttakefromyou" type="xs:double"/>
+            <xs:element name="date" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Execute Virement -->
+    <xs:element name="ExecuteVirementRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ribEmetteur" type="xs:string"/>
+                <xs:element name="ribRecepteur" type="xs:string"/>
+                <xs:element name="montant" type="xs:double"/>
+                <xs:element name="Type" type="tns:Type"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ExecuteVirementResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                <xs:element name="virementInfo" type="tns:virementSoapInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Virement By ID -->
+    <xs:element name="GetVirementByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetVirementByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="virementInfo" type="tns:virementSoapInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
