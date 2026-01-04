@@ -37,6 +37,7 @@ public class VirementAdapterService {
         GetVirementByIdResponse response = soapClient.getVirementById(id);
         System.out.println(response.getVirementInfo().getType());
         System.out.println(response.getVirementInfo().getDate());
+        System.out.println(response.getVirementInfo().getAmmouttakefromyou());
         return mapper.toRestDto(response.getVirementInfo());
     }
 }
