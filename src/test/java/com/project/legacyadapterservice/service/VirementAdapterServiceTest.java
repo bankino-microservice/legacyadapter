@@ -121,4 +121,79 @@ class VirementAdapterServiceTest {
         verify(soapClient).getVirementById(1L);
         verify(mapper).toRestDto(soapVirementInfo);
     }
+
+    @Test
+    void getAllVirementsClient_ShouldCallSoapClientAndReturnMappedResponse() {
+        // Arrange
+        String clientRib = "RIB123456789";
+        GetAllVirementsClientResponse soapResponse = new GetAllVirementsClientResponse();
+        soapResponse.getVirements().add(soapVirementInfo);
+
+        GetAllVirementsClientResponseDTO restResponse = new GetAllVirementsClientResponseDTO();
+        restResponse.setVirements(java.util.Arrays.asList(restVirementInfo));
+
+        when(soapClient.getAllVirementsClient(clientRib)).thenReturn(soapResponse);
+        when(mapper.toRestDto(soapResponse)).thenReturn(restResponse);
+
+        // Act
+        GetAllVirementsClientResponseDTO result = virementAdapterService.getAllVirementsClient(clientRib);
+
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result.getVirements()).hasSize(1);
+        assertThat(result.getVirements().get(0).getId()).isEqualTo(1L);
+
+        verify(soapClient).getAllVirementsClient(clientRib);
+        verify(mapper).toRestDto(soapResponse);
+    }
+
+    @Test
+    void getVirementsEmis_ShouldCallSoapClientAndReturnMappedResponse() {
+        // Arrange
+        String clientRib = "RIB123456789";
+        GetVirementsEmisResponse soapResponse = new GetVirementsEmisResponse();
+        soapResponse.getVirements().add(soapVirementInfo);
+
+        GetVirementsEmisResponseDTO restResponse = new GetVirementsEmisResponseDTO();
+        restResponse.setVirements(java.util.Arrays.asList(restVirementInfo));
+
+        when(soapClient.getVirementsEmis(clientRib)).thenReturn(soapResponse);
+        when(mapper.toRestDto(soapResponse)).thenReturn(restResponse);
+
+        // Act
+        GetVirementsEmisResponseDTO result = virementAdapterService.getVirementsEmis(clientRib);
+
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result.getVirements()).hasSize(1);
+        assertThat(result.getVirements().get(0).getId()).isEqualTo(1L);
+
+        verify(soapClient).getVirementsEmis(clientRib);
+        verify(mapper).toRestDto(soapResponse);
+    }
+
+    @Test
+    void getVirementsRecus_ShouldCallSoapClientAndReturnMappedResponse() {
+        // Arrange
+        String clientRib = "RIB123456789";
+        GetVirementsRecusResponse soapResponse = new GetVirementsRecusResponse();
+        soapResponse.getVirements().add(soapVirementInfo);
+
+        GetVirementsRecusResponseDTO restResponse = new GetVirementsRecusResponseDTO();
+        restResponse.setVirements(java.util.Arrays.asList(restVirementInfo));
+
+        when(soapClient.getVirementsRecus(clientRib)).thenReturn(soapResponse);
+        when(mapper.toRestDto(soapResponse)).thenReturn(restResponse);
+
+        // Act
+        GetVirementsRecusResponseDTO result = virementAdapterService.getVirementsRecus(clientRib);
+
+        // Assert
+        assertThat(result).isNotNull();
+        assertThat(result.getVirements()).hasSize(1);
+        assertThat(result.getVirements().get(0).getId()).isEqualTo(1L);
+
+        verify(soapClient).getVirementsRecus(clientRib);
+        verify(mapper).toRestDto(soapResponse);
+    }
 }

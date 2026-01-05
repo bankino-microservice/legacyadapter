@@ -48,6 +48,39 @@ class CoreBankingSoapClientTest {
         verify(webServiceTemplate).marshalSendAndReceive(any(GetVirementByIdRequest.class));
     }
 
+    @Test
+    void getAllVirementsClient_ShouldSendRequestAndReturnResponse() {
+        GetAllVirementsClientResponse response = new GetAllVirementsClientResponse();
+        when(webServiceTemplate.marshalSendAndReceive(any(GetAllVirementsClientRequest.class))).thenReturn(response);
+
+        GetAllVirementsClientResponse result = soapClient.getAllVirementsClient("RIB123");
+
+        assertThat(result).isNotNull();
+        verify(webServiceTemplate).marshalSendAndReceive(any(GetAllVirementsClientRequest.class));
+    }
+
+    @Test
+    void getVirementsEmis_ShouldSendRequestAndReturnResponse() {
+        GetVirementsEmisResponse response = new GetVirementsEmisResponse();
+        when(webServiceTemplate.marshalSendAndReceive(any(GetVirementsEmisRequest.class))).thenReturn(response);
+
+        GetVirementsEmisResponse result = soapClient.getVirementsEmis("RIB123");
+
+        assertThat(result).isNotNull();
+        verify(webServiceTemplate).marshalSendAndReceive(any(GetVirementsEmisRequest.class));
+    }
+
+    @Test
+    void getVirementsRecus_ShouldSendRequestAndReturnResponse() {
+        GetVirementsRecusResponse response = new GetVirementsRecusResponse();
+        when(webServiceTemplate.marshalSendAndReceive(any(GetVirementsRecusRequest.class))).thenReturn(response);
+
+        GetVirementsRecusResponse result = soapClient.getVirementsRecus("RIB123");
+
+        assertThat(result).isNotNull();
+        verify(webServiceTemplate).marshalSendAndReceive(any(GetVirementsRecusRequest.class));
+    }
+
     // ===== C-EPARGNE OPERATIONS =====
 
     @Test

@@ -130,4 +130,55 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <!-- Get All Virements by Client RIB -->
+    <xs:element name="GetAllVirementsClientRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientRib" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllVirementsClientResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="virements" type="tns:virementSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Virements Emis (Sent) by Client RIB -->
+    <xs:element name="GetVirementsEmisRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientRib" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetVirementsEmisResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="virements" type="tns:virementSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Get Virements Recus (Received) by Client RIB -->
+    <xs:element name="GetVirementsRecusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientRib" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetVirementsRecusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="virements" type="tns:virementSoapInfo" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

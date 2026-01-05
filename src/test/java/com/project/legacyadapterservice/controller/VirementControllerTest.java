@@ -87,4 +87,76 @@ class VirementControllerTest {
 
         verify(virementService, times(1)).getVirementById(virementId);
     }
+
+    @Test
+    void getAllVirementsClient_ShouldReturnOkWithVirementsList() {
+        // Arrange
+        String clientRib = "RIB123456789";
+        GetAllVirementsClientResponseDTO response = new GetAllVirementsClientResponseDTO();
+        VirementSoapInfoDTO virementInfo = new VirementSoapInfoDTO();
+        virementInfo.setId(1L);
+        virementInfo.setMontant(1000.00);
+        response.setVirements(java.util.Arrays.asList(virementInfo));
+
+        when(virementService.getAllVirementsClient(clientRib)).thenReturn(response);
+
+        // Act
+        ResponseEntity<GetAllVirementsClientResponseDTO> result = virementController.getAllVirementsClient(clientRib);
+
+        // Assert
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(result.getBody()).isNotNull();
+        assertThat(result.getBody().getVirements()).hasSize(1);
+        assertThat(result.getBody().getVirements().get(0).getId()).isEqualTo(1L);
+
+        verify(virementService, times(1)).getAllVirementsClient(clientRib);
+    }
+
+    @Test
+    void getVirementsEmis_ShouldReturnOkWithVirementsList() {
+        // Arrange
+        String clientRib = "RIB123456789";
+        GetVirementsEmisResponseDTO response = new GetVirementsEmisResponseDTO();
+        VirementSoapInfoDTO virementInfo = new VirementSoapInfoDTO();
+        virementInfo.setId(2L);
+        virementInfo.setMontant(500.00);
+        response.setVirements(java.util.Arrays.asList(virementInfo));
+
+        when(virementService.getVirementsEmis(clientRib)).thenReturn(response);
+
+        // Act
+        ResponseEntity<GetVirementsEmisResponseDTO> result = virementController.getVirementsEmis(clientRib);
+
+        // Assert
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(result.getBody()).isNotNull();
+        assertThat(result.getBody().getVirements()).hasSize(1);
+        assertThat(result.getBody().getVirements().get(0).getId()).isEqualTo(2L);
+
+        verify(virementService, times(1)).getVirementsEmis(clientRib);
+    }
+
+    @Test
+    void getVirementsRecus_ShouldReturnOkWithVirementsList() {
+        // Arrange
+        String clientRib = "RIB123456789";
+        GetVirementsRecusResponseDTO response = new GetVirementsRecusResponseDTO();
+        VirementSoapInfoDTO virementInfo = new VirementSoapInfoDTO();
+        virementInfo.setId(3L);
+        virementInfo.setMontant(750.00);
+        response.setVirements(java.util.Arrays.asList(virementInfo));
+
+        when(virementService.getVirementsRecus(clientRib)).thenReturn(response);
+
+        // Act
+        ResponseEntity<GetVirementsRecusResponseDTO> result = virementController.getVirementsRecus(clientRib);
+
+        // Assert
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(result.getBody()).isNotNull();
+        assertThat(result.getBody().getVirements()).hasSize(1);
+        assertThat(result.getBody().getVirements().get(0).getId()).isEqualTo(3L);
+
+        verify(virementService, times(1)).getVirementsRecus(clientRib);
+    }
 }

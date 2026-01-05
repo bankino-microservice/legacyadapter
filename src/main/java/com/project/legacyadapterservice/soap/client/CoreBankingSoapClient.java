@@ -33,6 +33,27 @@ public class CoreBankingSoapClient {
         return (GetVirementByIdResponse) webServiceTemplate.marshalSendAndReceive(request);
     }
 
+    public GetAllVirementsClientResponse getAllVirementsClient(String clientRib) {
+        GetAllVirementsClientRequest request = new GetAllVirementsClientRequest();
+        request.setClientRib(clientRib);
+
+        return (GetAllVirementsClientResponse) webServiceTemplate.marshalSendAndReceive(request);
+    }
+
+    public GetVirementsEmisResponse getVirementsEmis(String clientRib) {
+        GetVirementsEmisRequest request = new GetVirementsEmisRequest();
+        request.setClientRib(clientRib);
+
+        return (GetVirementsEmisResponse) webServiceTemplate.marshalSendAndReceive(request);
+    }
+
+    public GetVirementsRecusResponse getVirementsRecus(String clientRib) {
+        GetVirementsRecusRequest request = new GetVirementsRecusRequest();
+        request.setClientRib(clientRib);
+
+        return (GetVirementsRecusResponse) webServiceTemplate.marshalSendAndReceive(request);
+    }
+
     // ===== C-EPARGNE OPERATIONS =====
     public CEpargneResponseDTO depositCEpargne(String Epargnerib, String Courantrib, double montant,
             int year, int month, int day) {

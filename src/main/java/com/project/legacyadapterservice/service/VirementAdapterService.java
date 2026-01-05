@@ -40,4 +40,19 @@ public class VirementAdapterService {
         System.out.println(response.getVirementInfo().getAmmouttakefromyou());
         return mapper.toRestDto(response.getVirementInfo());
     }
+
+    public GetAllVirementsClientResponseDTO getAllVirementsClient(String clientRib) {
+        GetAllVirementsClientResponse response = soapClient.getAllVirementsClient(clientRib);
+        return mapper.toRestDto(response);
+    }
+
+    public GetVirementsEmisResponseDTO getVirementsEmis(String clientRib) {
+        GetVirementsEmisResponse response = soapClient.getVirementsEmis(clientRib);
+        return mapper.toRestDto(response);
+    }
+
+    public GetVirementsRecusResponseDTO getVirementsRecus(String clientRib) {
+        GetVirementsRecusResponse response = soapClient.getVirementsRecus(clientRib);
+        return mapper.toRestDto(response);
+    }
 }

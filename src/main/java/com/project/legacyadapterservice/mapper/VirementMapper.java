@@ -17,6 +17,12 @@ public interface VirementMapper {
 
     ServiceStatusDTO toRestDto(ServiceStatus soap);
 
+    GetAllVirementsClientResponseDTO toRestDto(GetAllVirementsClientResponse soap);
+
+    GetVirementsEmisResponseDTO toRestDto(GetVirementsEmisResponse soap);
+
+    GetVirementsRecusResponseDTO toRestDto(GetVirementsRecusResponse soap);
+
     // Reverse for calling SOAP Backend
     ExecuteVirementRequest toSoapDto(ExecuteVirementRequestDTO rest);
 }
