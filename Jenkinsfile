@@ -86,28 +86,28 @@ EOF
         }
 
        stage("Build & Push to ECR") {
-            steps {
-                script {
-                    // This extracts the username/password from the AWS credentials stored in Jenkins
-                    withCredentials([aws(credentialsId: "${CREDENTIAL_ID}", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                        sh """
-                        # 1. Login to ECR
-                        aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_URL}
+              steps {
+                  script {
+                      // This extracts the username/password from the AWS credentials stored in Jenkins
+                      withCredentials([aws(credentialsId: "${CREDENTIAL_ID}", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                          sh """
+                          # 1. Login to ECR
+                          aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_URL}
 
-                        # 2. Build Docker Image
-                        docker build -t ${IMAGE_NAME}:legacy${BUILD_NUMBER} .
+                          # 2. Build Docker Image
+                          docker build -t ${IMAGE_NAME}:legacy${BUILD_NUMBER} .
 
-                        # 3. Tag Latest
-                        docker tag ${IMAGE_NAME}:legacy${BUILD_NUMBER} ${IMAGE_NAME}:latest
+                          # 3. Tag Latest
+                          docker tag ${IMAGE_NAME}:legacy${BUILD_NUMBER} ${IMAGE_NAME}:latest
 
-                        # 4. Push to ECR
-                        docker push ${IMAGE_NAME}:legacy${BUILD_NUMBER}
-                        docker push ${IMAGE_NAME}:legacylatest
-                        """
-                    }
-                }
-            }
-        }
+                          # 4. Push to ECR
+                          docker push ${IMAGE_NAME}:legacy${BUILD_NUMBER}
+                          docker push ${IMAGE_NAME}:legacylatest
+                          """
+                      }
+                  }
+              }
+          }
 
    stage("Trigger remote Trivy scan") {
     steps {
