@@ -85,35 +85,35 @@ EOF
             }
         }
 
-     stage("Build & Push to ECR") {
-         steps {
-             script {
-                 withCredentials([
-                     aws(
-                         credentialsId: "${CREDENTIAL_ID}",
-                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                     )
-                 ]) {
-                     sh """
-                     # 1. Login to ECR
-                     aws ecr get-login-password --region ${AWS_REGION} \
-                     | docker login --username AWS --password-stdin ${REGISTRY_URL}
+    stage("Build & Push to ECR") {
+        steps {
+            script {
+                withCredentials([
+                    aws(
+                        credentialsId: "${CREDENTIAL_ID}",
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    )
+                ]) {
+                    sh """
+                    # 1. Login to ECR
+                    aws ecr get-login-password --region ${AWS_REGION} \
+                    | docker login --username AWS --password-stdin ${REGISTRY_URL}
 
-                     # 2. Build Docker Image (immutable tag)
-                     docker build -t ${IMAGE_NAME}:legacy${BUILD_NUMBER} .
+                    # 2. Build Docker Image (immutable tag)
+                    docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
 
-                     # 3. Tag as latest (mutable tag)
-                     docker tag ${IMAGE_NAME}:legacy${BUILD_NUMBER} ${IMAGE_NAME}:latest
+                    # 3. Tag as core-latest (mutable tag)
+                    docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:core-latest
 
-                     # 4. Push both tags
-                     docker push ${IMAGE_NAME}:legacy${BUILD_NUMBER}
-                     docker push ${IMAGE_NAME}:latest
-                     """
-                 }
-             }
-         }
-     }
+                    # 4. Push both tags
+                    docker push ${IMAGE_NAME}:${BUILD_NUMBER}
+                    docker push ${IMAGE_NAME}:core-latest
+                    """
+                }
+            }
+        }
+    }
 
 
    stage("Trigger remote Trivy scan") {
