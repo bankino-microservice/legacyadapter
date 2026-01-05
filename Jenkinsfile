@@ -101,14 +101,14 @@ EOF
                     | docker login --username AWS --password-stdin ${REGISTRY_URL}
 
                     # 2. Build Docker Image (immutable tag)
-                    docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                    docker build -t ${IMAGE_NAME}:legacy${BUILD_NUMBER} .
 
-                    # 3. Tag as core-latest (mutable tag)
-                    docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:core-latest
+                    # 3. Tag as legacy-latest (mutable tag)
+                    docker tag ${IMAGE_NAME}:legacy${BUILD_NUMBER} ${IMAGE_NAME}:legacy-latest
 
                     # 4. Push both tags
-                    docker push ${IMAGE_NAME}:${BUILD_NUMBER}
-                    docker push ${IMAGE_NAME}:core-latest
+                    docker push ${IMAGE_NAME}:legacy${BUILD_NUMBER}
+                    docker push ${IMAGE_NAME}:legacy-latest
                     """
                 }
             }
