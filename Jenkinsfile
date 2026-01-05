@@ -6,6 +6,7 @@ pipeline{
         jdk "Java"
     }
     environment{
+        CLUSTER_NAME = "ebanking-dev-cluster"
         Scanner_home= tool 'sonar'
         CREDENTIAL_ID="adminuser:us-west-2:awstoken"
         appregistery="342547628532.dkr.ecr.us-west-2.amazonaws.com/ebanking"
@@ -141,6 +142,26 @@ scp -o StrictHostKeyChecking=no ${remoteUser}@${remoteHost}:~/trivy-remote-resul
         }
     }
 }
+
+  stage("Deploy to EKS") {
+              steps {
+                  script {
+                      withCredentials([aws(credentialsId: "${CREDENTIAL_ID}", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                          sh """
+                          # 1. Login to EKS
+                          aws eks update-kubeconfig --region ${AWS_REGION} --name ${CLUSTER_NAME}
+
+
+
+                          # 3. Apply the updated file
+                          kubectl apply -f k8s/legacy-adapter.yaml
+
+
+                          """
+                      }
+                  }
+              }
+          }
 
         stage("delete image"){
             steps{
