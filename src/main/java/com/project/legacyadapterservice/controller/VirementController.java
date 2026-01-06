@@ -5,10 +5,12 @@ import com.project.legacyadapterservice.dto.rest.ExecuteVirementResponseDTO;
 import com.project.legacyadapterservice.dto.rest.VirementSoapInfoDTO;
 import com.project.legacyadapterservice.service.VirementAdapterService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/virements")
+@PreAuthorize("hasAnyRole('PAYMENT_SERVICE')")
 public class VirementController {
 
     private final VirementAdapterService virementService;

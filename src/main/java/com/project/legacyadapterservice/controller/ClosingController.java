@@ -5,10 +5,12 @@ import com.project.legacyadapterservice.dto.rest.ClotureAnnuelleResponseDTO;
 import com.project.legacyadapterservice.dto.rest.ClotureQuinzaineRequestDTO;
 import com.project.legacyadapterservice.service.ClosingAdapterService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/operations")
+@PreAuthorize("hasAnyRole('PAYMENT_SERVICE')")
 public class ClosingController {
 
     private final ClosingAdapterService closingService;

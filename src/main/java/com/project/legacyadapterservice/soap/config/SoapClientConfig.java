@@ -18,7 +18,7 @@ public class SoapClientConfig {
         WebServiceTemplate template = new WebServiceTemplate();
         template.setMarshaller(marshaller);
         template.setUnmarshaller(marshaller);
-        template.setDefaultUri("http://localhost:8080/ws");
+        template.setDefaultUri("http://localhost:8086/ws");
         return template;
     }
 

@@ -3,6 +3,7 @@ package com.project.legacyadapterservice.controller;
 import com.project.legacyadapterservice.dto.rest.*;
 import com.project.legacyadapterservice.service.AccountAdapterService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -57,12 +58,14 @@ public class AccountController {
 
     // ===== ACCOUNT CREATION ENDPOINTS =====
 
+    @PreAuthorize("hasAnyRole('ACCOUNT_SERVICE')")
     @PostMapping("/create/ccourant")
     public ResponseEntity<CreateCCourantResponseDTO> createCCourant(
             @RequestBody CreateCCourantRequestDTO request) {
         return ResponseEntity.ok(accountService.createCCourant(request));
     }
 
+    @PreAuthorize("hasAnyRole('ACCOUNT_SERVICE')")
     @PostMapping("/create/cepargne")
     public ResponseEntity<CreateCEpargneResponseDTO> createCEpargne(
             @RequestBody CreateCEpargneRequestDTO request) {

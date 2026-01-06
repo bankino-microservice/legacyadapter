@@ -3,10 +3,12 @@ import com.project.legacyadapterservice.dto.rest.CEpargneResponseDTO;
 import com.project.legacyadapterservice.dto.rest.DepotRetraitCEpargneRequestDTO;
 import com.project.legacyadapterservice.service.SavingsAdapterService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/savings")
+@PreAuthorize("hasAnyRole('PAYMENT_SERVICE')")
 public class SavingsController {
 
     private final SavingsAdapterService savingsService;
