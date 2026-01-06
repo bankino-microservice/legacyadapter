@@ -34,7 +34,7 @@ pipeline{
     stages{
         stage("Checkout"){
             steps{
-              git branch:"legacy-adapter-service-final" , url:"https://github.com/bankino-microservice/legacyadapter.git",
+              git branch:"final" , url:"https://github.com/bankino-microservice/legacyadapter.git",
                 credentialsId: 'git-token'
             }
         }
