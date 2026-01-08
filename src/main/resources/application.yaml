@@ -1,3 +1,6 @@
+server:
+  port: 8085
+
 spring:
   application:
     name: legacy-adapter-service
@@ -6,11 +9,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/bankino
-
-server:
-  port: 8085
+          issuer-uri: http://keycloak:8080/realms/bankino
 
 legacy:
   soap:
-    url: http://localhost:8086/ws
+    url: ${LEGACY_SOAP_URL}
