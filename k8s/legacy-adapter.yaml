@@ -6,7 +6,7 @@ metadata:
   labels:
     app: legacy-adapter
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: legacy-adapter

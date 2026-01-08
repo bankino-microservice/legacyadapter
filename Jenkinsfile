@@ -8,7 +8,7 @@ pipeline{
     environment{
         CLUSTER_NAME = "ebanking-dev-cluster"
         Scanner_home= tool 'sonar'
-        CREDENTIAL_ID="adminuser:us-west-2:awstoken"
+        CREDENTIAL_ID="ecrCred"
         appregistery="342547628532.dkr.ecr.us-west-2.amazonaws.com/ebanking"
         projectregistery="https://342547628532.dkr.ecr.us-west-2.amazonaws.com"
 
@@ -21,7 +21,7 @@ pipeline{
 
         // Full Image Name
         IMAGE_NAME = "342547628532.dkr.ecr.us-west-2.amazonaws.com/ebanking"
-        POSTGRES_HOST = '35.88.142.67'
+        POSTGRES_HOST = '52.25.21.18'
         POSTGRES_PORT = '5432'
         POSTGRES_USER = 'ebank'
         POSTGRES_PASSWORD = 'ebank'
@@ -35,7 +35,7 @@ pipeline{
         stage("Checkout"){
             steps{
               git branch:"finalfinal" , url:"https://github.com/bankino-microservice/legacyadapter.git",
-                credentialsId: 'git-token'
+                credentialsId: 'ebanking-git-token'
             }
         }
 
@@ -115,7 +115,7 @@ EOF
             }
         }
     }
-
+/*
 
    stage("Trigger remote Trivy scan") {
     steps {
@@ -142,6 +142,7 @@ scp -o StrictHostKeyChecking=no ${remoteUser}@${remoteHost}:~/trivy-remote-resul
         }
     }
 }
+*/
 
   stage("Deploy to EKS") {
               steps {
