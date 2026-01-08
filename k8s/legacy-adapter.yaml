@@ -26,6 +26,8 @@ spec:
             # 1. CONNECTS TO THE CORE SERVICE
             - name: LEGACY_SOAP_URL
               value: "http://core-banking-service:80/ws"
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+              value: "http://keycloak:8080/realms/bankino"
 
 ---
 apiVersion: v1
@@ -35,7 +37,7 @@ metadata:
   namespace: banking-ns
 spec:
   # Creates an AWS Load Balancer to make this accessible from the internet
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: legacy-adapter
   ports:
